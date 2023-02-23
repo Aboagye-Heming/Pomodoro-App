@@ -1,32 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/icons/favicon-32x32.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@700&family=Roboto+Slab:wght@700&family=Space+Mono:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/starter-code/assets/css/style.css" />
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Pomodoro app</title>
-</head>
-<body>
-  pomodoro
-  short break
-  long break
-
-  start 
-  pause
-  restart
-
-  Settings
-
-  Time (minutes)
-  pomodoro
-  short break
-  long break
-
-  Font
-  Color
-
-  Apply
-</body>
+    <title>Frontend Mentor | Pomodoro app</title>
+  </head>
+  <body>
+    <main class="hero">
+      <div class="container">
+        <div class="content">
+          <h2 class="text-lg">pomodoro</h2>
+          <nav class="tabs">
+            <div class="tab active"><p>pomodoro</p></div>
+            <div class="tab"><p>short break</p></div>
+            <div class="tab"><p>long break</p></div>
+          </nav>
+          <div class="outer-ring">
+            <div class="inner-ring">
+              <div class="timer">
+                <div class="progress-bar">
+                  <h1 class="time text-xl">
+                    <span id="minutes">17</span>
+                    <span id="colon">:</span>
+                    <span id="seconds">59</span>
+                  </h1>
+                  <p class="pause text-md">PAUSE</p>
+                </div>
+                <svg class="svg">
+                  <circle class="circle" cx="170" cy="170" r="160" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="settings">
+            <img
+              src="/starter-code/assets/icons/icon-settings.svg"
+              alt="icon-settings"
+            />
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="/main.js"></script>
+  </body>
 </html>
+<!-- restart start
+      Settings Time (minutes) pomodoro short break long break Font Color Apply -->

@@ -1,0 +1,153 @@
+body {
+  margin: 0;
+  font-family: "Kumbh Sans", sans-serif;
+  font-weight: 700;
+}
+
+/* typography */
+.text-xl {
+  line-height: 124px;
+  font-size: 100px;
+}
+.text-lg {
+  line-height: 40px;
+  font-size: 32px;
+}
+.text-md {
+  line-height: 20px;
+  font-size: 16px;
+}
+.text-small {
+  line-height: 17px;
+  font-size: 14px;
+}
+
+/* colors */
+/* .orange{
+    color: rgba(248, 112, 112, 1);
+}
+.sea-blue{
+    color: rgba(112, 243, 248, 1);
+}
+.pink{
+    color: rgba(216, 129, 248, 1);
+}
+.white{
+    color: rgba(255, 255, 255, 1);
+}
+.ash{
+    color: rgba(215, 224, 255, 1);
+}
+.blue{
+    color: rgba(30, 33, 63, 1)
+}
+.cream{
+    color: rgba(239, 241, 250, 1);
+}
+.deep-blue{
+    color: rgba(22, 25, 50, 1);
+} */
+
+/* desktop */
+.hero {
+  background-color: rgba(30, 33, 63, 1);
+  width: 100%;
+  height: 100vh;
+  /* max-width: 1440px;
+    max-height: 800px; */
+}
+
+.container {
+  max-width: 1360px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 40px;
+  padding-right: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+h2 {
+  color: #d7e0ff;
+  text-align: center;
+  margin-bottom: 47px;
+}
+.tabs {
+  display: flex;
+  margin-bottom: 45px;
+  border-radius: 50px;
+  background-color: rgba(22, 25, 50, 1);
+  padding: 8px;
+}
+.tabs .tab {
+  border-radius: 50px;
+  padding: 12px 30px;
+  color: #d7e0ff;
+}
+.tabs .tab.active {
+  background: #f87070;
+  color: #1e213f;
+}
+.outer-ring {
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(315deg, #2e325a 0%, #0e112a 100%);
+  box-shadow: -50px -50px 100px #272c5a, 50px 50px 100px #121530;
+  border-radius: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.inner-ring {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(100% - 30px);
+  height: calc(100% - 30px);
+  background-color: #161932;
+  border-radius: 100%;
+}
+.timer {
+  width: calc(100% - 30px);
+  height: calc(100% - 30px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.time {
+  color: #d7e0ff;
+  text-align: center;
+  margin-bottom: 5px;
+}
+.pause {
+  letter-spacing: 15px;
+  color: #d7e0ff;
+  text-align: center;
+}
+.settings {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  transform: rotate(-90deg);
+}
+
+.circle {
+  stroke: #f87070;
+  stroke-width: 12px;
+  stroke-dasharray: 503;
+  stroke-dashoffset: 503;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  transition: 2s stroke-dashoffset;
+}
