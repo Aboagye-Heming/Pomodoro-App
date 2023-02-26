@@ -23,11 +23,11 @@
     <main class="hero">
       <div class="container">
         <div class="content">
-          <h2 class="text-lg">pomodoro</h2>
+          <h2 class="time-title text-lg">pomodoro</h2>
           <nav class="tabs">
-            <div class="tab active"><p>pomodoro</p></div>
-            <div class="tab"><p>short break</p></div>
-            <div class="tab"><p>long break</p></div>
+            <div class="tab active" id="pomodoro"><p>pomodoro</p></div>
+            <div class="tab" id="short-break"><p>short break</p></div>
+            <div class="tab" id="long-break"><p>long break</p></div>
           </nav>
           <div class="outer-ring">
             <div class="inner-ring">
@@ -48,15 +48,80 @@
           </div>
           <div class="settings">
             <img
+              id="settings-modal-btn"
               src="/starter-code/assets/icons/icon-settings.svg"
               alt="icon-settings"
             />
           </div>
         </div>
       </div>
+      <!-- start settings modal -->
+      <div id="settings-modal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title deep-blue">Settings</h2>
+            <div id="modal-close-btn" class="modal-close-btn">
+              <img src="./assets/icons/icon-close.svg" alt="" />
+            </div>
+          </div>
+          <div class="modal-body">
+            <p class="time-minutes text-small deep-blue">TIME (MINUTES)</p>
+            <div class="input-group">
+              <div>
+                <label for="pomodoro-input" class="label">pomodoro</label>
+                <div class="input-wrapper">
+                  <input class="input" id="pomodoro-input" value="25" />
+                  <div class="break-time-change-arrows">
+                    <img src="./assets/icons/icon-arrow-up.svg" alt="" />
+                    <img src="./assets/icons/icon-arrow-down.svg" alt="" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label for="short-break-input" class="label">short break</label>
+                <div class="input-wrapper">
+                  <input id="short-break-input" class="input" value="5" />
+                  <div class="break-time-change-arrows">
+                    <img src="./assets/icons/icon-arrow-up.svg" alt="" />
+                    <img src="./assets/icons/icon-arrow-down.svg" alt="" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label for="long-break-input" class="label">long break</label>
+                <div class="input-wrapper">
+                  <input id="long-break-input" class="input" value="15" />
+                  <div class="break-time-change-arrows">
+                    <img src="./assets/icons/icon-arrow-up.svg" alt="" />
+                    <img src="./assets/icons/icon-arrow-down.svg" alt="" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-font underline">
+              <p class="text-xsm">FONT</p>
+              <div class="modal-font-styles">
+                <div class="font-style active">Aa</div>
+                <div class="font-style roboto-slab">Aa</div>
+                <div class="font-style space-mono">Aa</div>
+              </div>
+            </div>
+            <div class="modal-font">
+              <p class="text-xsm">COLOUR</p>
+              <div class="modal-font-styles">
+                <div class="color-style active">&check;</div>
+                <div class="color-style blue"></div>
+                <div class="color-style violet"></div>
+              </div>
+            </div>
+            <button class="apply-btn" type="button">APPLY</button>
+          </div>
+        </div>
+      </div>
+      <!-- modal ending -->
     </main>
-    <script src="/main.js"></script>
   </body>
+  <script src="/main.js"></script>
 </html>
 <!-- restart start
       Settings Time (minutes) pomodoro short break long break Font Color Apply -->
