@@ -61,3 +61,6 @@ applyBtn.addEventListener("click", (e) => {
   document.querySelector(".circle").style.stroke = selectedColor;
   closeModal();
 });
+
+
+
