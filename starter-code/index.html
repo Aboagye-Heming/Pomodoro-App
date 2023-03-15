@@ -41,6 +41,12 @@
                   <p class="pause text-md" id="start" style="cursor: pointer">
                     START
                   </p>
+                  <p class="pause hide text-md" id="pause" style="cursor: pointer">
+                    PAUSE
+                  </p>
+                  <p class="pause hide text-md" id="restart" style="cursor: pointer">
+                    RESTART
+                  </p>
                 </div>
                 <svg class="svg">
                   <circle class="circle" cx="170" cy="170" r="160" />
@@ -69,7 +75,7 @@
           <div class="modal-body">
             <p class="time-minutes text-small deep-blue">TIME (MINUTES)</p>
             <div class="input-group">
-              <div>
+              <div class="name-input-section">
                 <label for="pomodoro-input" class="label">pomodoro</label>
                 <div class="input-wrapper">
                   <input
@@ -84,7 +90,7 @@
                   </div>
                 </div>
               </div>
-              <div>
+              <div class="name-input-section">
                 <label for="short-break-input" class="label">short break</label>
                 <div class="input-wrapper">
                   <input
@@ -99,7 +105,7 @@
                   </div>
                 </div>
               </div>
-              <div>
+              <div class="name-input-section">
                 <label for="long-break-input" class="label">long break</label>
                 <div class="input-wrapper">
                   <input

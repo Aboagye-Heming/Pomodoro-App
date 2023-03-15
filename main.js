@@ -131,19 +131,44 @@ applyBtn.addEventListener("click", (e) => {
   closeModal();
 });
 
-var toatalSeconds = 0;
-var secondsLeft = 1;
+const startBtn = document.getElementById("start");
+const pauseBtn = document.getElementById("pause");
+const restartBtn = document.getElementById("restart");
 var timerInterval = null;
+
 const startPomodoroTimer = () => {
-  if (!timerInterval) {
-    timerInterval = setInterval(() => {
-      pomodoroTotalSeconds--;
-      const seconds = pomodoroTotalSeconds % 60
-      const minutes = Math.floor(pomodoroTotalSeconds / 60)
-      document.getElementById("seconds").innerText = seconds < 10 ? `0${seconds}` : seconds;
-      document.getElementById("minutes").innerText = minutes < 10 ? `0${minutes}` : minutes;
-    }, 1000);
-  }
+  startBtn.classList.add("hide");
+  pauseBtn.classList.remove("hide");
+  timerInterval = setInterval(() => {
+    pomodoroTotalSeconds--;
+    const seconds = pomodoroTotalSeconds % 60;
+    const minutes = Math.floor(pomodoroTotalSeconds / 60);
+    document.getElementById("seconds").innerText =
+      seconds < 10 ? `0${seconds}` : seconds;
+    document.getElementById("minutes").innerText =
+      minutes < 10 ? `0${minutes}` : minutes;
+
+    if (pomodoroTotalSeconds <= 0) {
+      clearInterval(timerInterval);
+      pauseBtn.classList.add("hide");
+      restartBtn.classList.remove("hide");
+    }
+  }, 1000);
 };
 
-document.getElementById("start").addEventListener("click", startPomodoroTimer);
+const pausePomodoroTimer = () => {
+  clearInterval(timerInterval);
+  startBtn.classList.remove("hide");
+  pauseBtn.classList.add("hide");
+};
+
+const restartPomodoroTimer = () => {
+  pomodoroTotalSeconds = Number(tempPomodoroTime) * 60;
+  startPomodoroTimer();
+  restartBtn.classList.add("hide")
+  
+};
+
+startBtn.addEventListener("click", startPomodoroTimer);
+pauseBtn.addEventListener("click", pausePomodoroTimer);
+restartBtn.addEventListener("click", restartPomodoroTimer)
