@@ -13,6 +13,36 @@ var pomodoroTotalSeconds = pomodoroTime * 60;
 var shortBreakTotalSeconds = shortBreakTime * 60;
 var longBreakTotalSeconds = longBreakTime * 60;
 
+const startBtn = document.getElementById("start");
+const pauseBtn = document.getElementById("pause");
+const restartBtn = document.getElementById("restart");
+
+const reset = () => {
+  const activeTab = document.querySelector(".tab.active").getAttribute("id");
+  var totalSeconds = 0;
+  if (activeTab === "pomodoro") {
+    totalSeconds = pomodoroTotalSeconds;
+  } else if (activeTab === "short-break") {
+    totalSeconds = shortBreakTotalSeconds;
+  } else if (activeTab === "long-break") {
+    totalSeconds = longBreakTotalSeconds;
+  }
+  if (timerInterval) {
+    clearInterval(timerInterval);
+  }
+  const seconds = totalSeconds % 60;
+  const minutes = Math.floor(totalSeconds / 60);
+  document.getElementById("seconds").innerText =
+    seconds < 10 ? `0${seconds}` : seconds;
+  document.getElementById("minutes").innerText =
+    minutes < 10 ? `0${minutes}` : minutes;
+
+  pauseBtn.classList.add("hide");
+  restartBtn.classList.add("hide");
+  startBtn.classList.remove("hide");
+};
+reset();
+
 const settingsModal = document.getElementById("settings-modal");
 const closeModal = () => {
   settingsModal.classList.remove("show");
@@ -57,6 +87,8 @@ tabs.forEach((tab) => {
     tab.classList.add("active");
     tab.style.backgroundColor = selectedColor;
     tab.style.color = "#1e213f";
+
+    reset();
   });
 });
 
@@ -127,48 +159,74 @@ applyBtn.addEventListener("click", (e) => {
   document.body.style.fontFamily = selectedFont;
   applyBtn.style.backgroundColor = selectedColor;
   document.querySelector(".tab.active").style.backgroundColor = selectedColor;
-  document.querySelector(".circle").style.stroke = selectedColor;
+  document.querySelector(
+    ".circular-progress"
+  ).style.background = `conic-gradient(${selectedColor} 360deg, #161932 0deg)`;
+  reset();
   closeModal();
 });
 
-const startBtn = document.getElementById("start");
-const pauseBtn = document.getElementById("pause");
-const restartBtn = document.getElementById("restart");
 var timerInterval = null;
 
-const startPomodoroTimer = () => {
+const startTimer = () => {
   startBtn.classList.add("hide");
   pauseBtn.classList.remove("hide");
+
+  const activeTab = document.querySelector(".tab.active").getAttribute("id");
+  var totalSeconds = 0;
+  var overAllSeconds = 0;
+  if (activeTab === "pomodoro") {
+    totalSeconds = pomodoroTotalSeconds;
+    overAllSeconds = pomodoroTotalSeconds;
+  } else if (activeTab === "short-break") {
+    totalSeconds = shortBreakTotalSeconds;
+    overAllSeconds = shortBreakTotalSeconds;
+  } else if (activeTab === "long-break") {
+    totalSeconds = longBreakTotalSeconds;
+    overAllSeconds = longBreakTotalSeconds;
+  }
+
   timerInterval = setInterval(() => {
-    pomodoroTotalSeconds--;
-    const seconds = pomodoroTotalSeconds % 60;
-    const minutes = Math.floor(pomodoroTotalSeconds / 60);
+    totalSeconds--;
+    const seconds = totalSeconds % 60;
+    const minutes = Math.floor(totalSeconds / 60);
+    const percentage = (totalSeconds / overAllSeconds) * 100;
+
     document.getElementById("seconds").innerText =
       seconds < 10 ? `0${seconds}` : seconds;
     document.getElementById("minutes").innerText =
       minutes < 10 ? `0${minutes}` : minutes;
+    document.querySelector(
+      ".circular-progress"
+    ).style.background = `conic-gradient(${selectedColor} ${
+      percentage * 3.6
+    }deg, #161932 0deg)`;
 
-    if (pomodoroTotalSeconds <= 0) {
+    if (totalSeconds <= 0) {
       clearInterval(timerInterval);
       pauseBtn.classList.add("hide");
       restartBtn.classList.remove("hide");
+
+      document.querySelector(
+        ".circular-progress"
+      ).style.background = `conic-gradient(${selectedColor} 360deg, #161932 0deg)`;
+      
     }
   }, 1000);
 };
 
-const pausePomodoroTimer = () => {
+const pauseTimer = () => {
   clearInterval(timerInterval);
   startBtn.classList.remove("hide");
   pauseBtn.classList.add("hide");
 };
 
-const restartPomodoroTimer = () => {
+const restartTimer = () => {
   pomodoroTotalSeconds = Number(tempPomodoroTime) * 60;
-  startPomodoroTimer();
-  restartBtn.classList.add("hide")
-  
+  startTimer();
+  restartBtn.classList.add("hide");
 };
 
-startBtn.addEventListener("click", startPomodoroTimer);
-pauseBtn.addEventListener("click", pausePomodoroTimer);
-restartBtn.addEventListener("click", restartPomodoroTimer)
+startBtn.addEventListener("click", startTimer);
+pauseBtn.addEventListener("click", pauseTimer);
+restartBtn.addEventListener("click", restartTimer);
