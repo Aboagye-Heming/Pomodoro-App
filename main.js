@@ -16,6 +16,53 @@ var longBreakTotalSeconds = longBreakTime * 60;
 const startBtn = document.getElementById("start");
 const pauseBtn = document.getElementById("pause");
 const restartBtn = document.getElementById("restart");
+const arrowUpBtns = document.querySelectorAll(".arrow-up");
+const arrowDownBtns = document.querySelectorAll(".arrow-down");
+
+arrowUpBtns.forEach((arrowUpBtn) => {
+  arrowUpBtn.addEventListener("click", (e) => {
+    const inputId = e.target.getAttribute("data-name");
+    const inputElement = document.getElementById(inputId);
+    inputElement.value++;
+
+    const name = inputElement.name;
+    switch (name) {
+      case "pomodoro":
+        tempPomodoroTime = inputElement.value;
+        break;
+      case "short-break":
+        tempShortBreakTime = inputElement.value;
+        break;
+      case "long-break":
+        tempLongBreakTime = inputElement.value;
+        break;
+      default:
+        break;
+    }
+  });
+});
+arrowDownBtns.forEach((arrowDownBtn) => {
+  arrowDownBtn.addEventListener("click", (e) => {
+    const inputId = e.target.getAttribute("data-name");
+    const inputElement = document.getElementById(inputId);
+    inputElement.value--;
+
+    const name = inputElement.name;
+    switch (name) {
+      case "pomodoro":
+        tempPomodoroTime = inputElement.value;
+        break;
+      case "short-break":
+        tempShortBreakTime = inputElement.value;
+        break;
+      case "long-break":
+        tempLongBreakTime = inputElement.value;
+        break;
+      default:
+        break;
+    }
+  });
+});
 
 const reset = () => {
   const activeTab = document.querySelector(".tab.active").getAttribute("id");
@@ -43,12 +90,10 @@ const reset = () => {
 };
 reset();
 
-
 const settingsModal = document.getElementById("settings-modal");
 const closeModal = () => {
   settingsModal.classList.remove("show");
 };
-
 
 const inputs = document.querySelectorAll(".input");
 inputs.forEach((input) => {
@@ -89,11 +134,13 @@ tabs.forEach((tab) => {
     tab.classList.add("active");
     tab.style.backgroundColor = selectedColor;
     tab.style.color = "#1e213f";
+    document.querySelector(
+      ".circular-progress"
+    ).style.background = `conic-gradient(${selectedColor} 360deg, #161932 0deg)`;
 
     reset();
   });
 });
-
 
 const settingsModalBtn = document.getElementById("settings-modal-btn");
 settingsModalBtn.addEventListener("click", (e) => {
@@ -122,12 +169,10 @@ settingsModalBtn.addEventListener("click", (e) => {
   settingsModal.classList.add("show");
 });
 
-
 const modalCloseBtn = document.getElementById("modal-close-btn");
 modalCloseBtn.addEventListener("click", (e) => {
   closeModal();
 });
-
 
 const fonts = document.querySelectorAll(".font-style");
 fonts.forEach((font) => {
@@ -215,7 +260,6 @@ const startTimer = () => {
       document.querySelector(
         ".circular-progress"
       ).style.background = `conic-gradient(${selectedColor} 360deg, #161932 0deg)`;
-      
     }
   }, 1000);
 };
