@@ -43,10 +43,12 @@ const reset = () => {
 };
 reset();
 
+
 const settingsModal = document.getElementById("settings-modal");
 const closeModal = () => {
   settingsModal.classList.remove("show");
 };
+
 
 const inputs = document.querySelectorAll(".input");
 inputs.forEach((input) => {
@@ -92,6 +94,7 @@ tabs.forEach((tab) => {
   });
 });
 
+
 const settingsModalBtn = document.getElementById("settings-modal-btn");
 settingsModalBtn.addEventListener("click", (e) => {
   tempPomodoroTime = pomodoroTime;
@@ -119,10 +122,12 @@ settingsModalBtn.addEventListener("click", (e) => {
   settingsModal.classList.add("show");
 });
 
+
 const modalCloseBtn = document.getElementById("modal-close-btn");
 modalCloseBtn.addEventListener("click", (e) => {
   closeModal();
 });
+
 
 const fonts = document.querySelectorAll(".font-style");
 fonts.forEach((font) => {
