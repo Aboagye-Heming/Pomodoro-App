@@ -10,18 +10,7 @@
 - Semantic HTML5 markup
 - CSS custom properties
 - Flexbox
-- CSS Grid
-- Mobile-first workflow
 - Vanilla Javascript
-
-
-### What I learned
-
-I learnt a lot things
-
-
-### Continued development
-
 
 
 ### Useful resources
