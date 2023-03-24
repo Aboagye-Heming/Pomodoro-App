@@ -25,48 +25,51 @@
         <div class="content">
           <h2 class="time-title text-lg">pomodoro</h2>
           <nav class="tabs">
-            <div class="tab active" id="pomodoro"><p>pomodoro</p></div>
+            <div class="tab active bg-orange" id="pomodoro"><p>pomodoro</p></div>
             <div class="tab" id="short-break"><p>short break</p></div>
             <div class="tab" id="long-break"><p>long break</p></div>
           </nav>
           <div class="outer-ring">
             <div class="inner-ring">
               <div class="timer">
-                <div class="progress-bar">
-                  <div class="circular-progress">
-                    <div class="progress-value">
-                      <h1 class="time text-xl">
-                        <span id="minutes">00</span>
-                        <span id="colon">:</span>
-                        <span id="seconds">00</span>
-                      </h1>
-                      <p
-                        class="pause text-md"
-                        id="start"
-                        style="cursor: pointer"
-                      >
-                        START
-                      </p>
-                      <p
-                        class="pause hide text-md"
-                        id="pause"
-                        style="cursor: pointer"
-                      >
-                        PAUSE
-                      </p>
-                      <p
-                        class="pause hide text-md"
-                        id="restart"
-                        style="cursor: pointer"
-                      >
-                        RESTART
-                      </p>
-                    </div>
-                  </div>
+                <svg class="progress-bar">
+                  <circle
+                    class="progress-bar-background"
+                    cx="50%"
+                    cy="50%"
+                    r="164"
+                  ></circle>
+                  <circle
+                    class="progress-bar-circle stroke-orange"
+                    cx="50%"
+                    cy="50%"
+                    r="164"
+                  ></circle>
+                </svg>
+                <div class="progress-value">
+                  <h1 class="time text-xl">
+                    <span id="minutes">00</span>
+                    <span id="colon">:</span>
+                    <span id="seconds">00</span>
+                  </h1>
+                  <p class="pause text-md" id="start" style="cursor: pointer">
+                    START
+                  </p>
+                  <p
+                    class="pause hide text-md"
+                    id="pause"
+                    style="cursor: pointer"
+                  >
+                    PAUSE
+                  </p>
+                  <p
+                    class="pause hide text-md"
+                    id="restart"
+                    style="cursor: pointer"
+                  >
+                    RESTART
+                  </p>
                 </div>
-                <!-- <svg class="svg">
-                  <circle class="circle" cx="170" cy="170" r="160" />
-                </svg> -->
               </div>
             </div>
           </div>
@@ -83,13 +86,13 @@
       <div id="settings-modal" class="modal">
         <div class="modal-content">
           <div class="modal-header">
-            <h2 class="modal-title deep-blue">Settings</h2>
+            <h2 class="modal-title ">Settings</h2>
             <div id="modal-close-btn" class="modal-close-btn">
               <img src="./assets/icons/icon-close.svg" alt="" />
             </div>
           </div>
           <div class="modal-body">
-            <p class="time-minutes text-small deep-blue">TIME (MINUTES)</p>
+            <p class="time-minutes text-small">TIME (MINUTES)</p>
             <div class="input-group">
               <div class="name-input-section">
                 <label for="pomodoro-input" class="label">pomodoro</label>
@@ -182,15 +185,15 @@
             <div class="modal-font">
               <p class="text-xsm">COLOR</p>
               <div class="modal-font-styles">
-                <div class="color-style pink active" data-color="#f87070">
+                <div class="color-style bg-orange active" data-color="orange">
                   &check;
                 </div>
-                <div class="color-style blue" data-color="#70f3f8"></div>
-                <div class="color-style violet" data-color="#d881f8"></div>
+                <div class="color-style bg-blue" data-color="blue"></div>
+                <div class="color-style bg-violet" data-color="violet"></div>
               </div>
             </div>
             <button
-              class="apply-btn apply-btn-pink"
+              class="apply-btn bg-orange"
               type="button"
               id="apply-btn"
             >

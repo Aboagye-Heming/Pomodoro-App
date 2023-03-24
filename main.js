@@ -1,18 +1,19 @@
-var selectedFont = "Kumbh Sans";
-var selectedColor = "#f87070";
-var pomodoroTime = 25;
-var shortBreakTime = 5;
-var longBreakTime = 15;
-var tempPomodoroTime = 0;
-var tempShortBreakTime = 5;
-var tempLongBreakTime = 15;
-var pomodoroTimeLeft = 0;
-var shortBreakTimeLeft = 0;
-var longBreakTimeLeft = 0;
-var pomodoroTotalSeconds = pomodoroTime * 60;
-var shortBreakTotalSeconds = shortBreakTime * 60;
-var longBreakTotalSeconds = longBreakTime * 60;
-var timerInterval = null;
+let selectedFont = "Kumbh Sans";
+let selectedColor = "orange";
+let tempSelectedColor = "orange";
+let pomodoroTime = 25;
+let shortBreakTime = 5;
+let longBreakTime = 15;
+let tempPomodoroTime = 0;
+let tempShortBreakTime = 5;
+let tempLongBreakTime = 15;
+let pomodoroTimeLeft = 0;
+let shortBreakTimeLeft = 0;
+let longBreakTimeLeft = 0;
+let pomodoroTotalSeconds = pomodoroTime * 60;
+let shortBreakTotalSeconds = shortBreakTime * 60;
+let longBreakTotalSeconds = longBreakTime * 60;
+let timerInterval = null;
 
 const startBtn = document.getElementById("start");
 const pauseBtn = document.getElementById("pause");
@@ -20,15 +21,24 @@ const restartBtn = document.getElementById("restart");
 const arrowUpBtns = document.querySelectorAll(".arrow-up");
 const arrowDownBtns = document.querySelectorAll(".arrow-down");
 
+const progressBarCircle = document.querySelector(".progress-bar-circle");
+
+const setProgress = (percent) => {
+  const circumference = 2 * Math.PI * progressBarCircle.r.baseVal.value;
+  const offset = circumference - (percent / 100) * circumference;
+  progressBarCircle.style.strokeDasharray = `${circumference} ${circumference}`;
+  progressBarCircle.style.strokeDashoffset = offset;
+};
+
 const reset = () => {
   // get id of active tab
-  const activeTab = document.querySelector(".tab.active").getAttribute("id");
-  var totalSeconds = 0;
-  if (activeTab === "pomodoro") {
+  const activeTabId = document.querySelector(".tab.active").getAttribute("id");
+  let totalSeconds = 0;
+  if (activeTabId === "pomodoro") {
     totalSeconds = pomodoroTotalSeconds;
-  } else if (activeTab === "short-break") {
+  } else if (activeTabId === "short-break") {
     totalSeconds = shortBreakTotalSeconds;
-  } else if (activeTab === "long-break") {
+  } else if (activeTabId === "long-break") {
     totalSeconds = longBreakTotalSeconds;
   }
 
@@ -36,6 +46,8 @@ const reset = () => {
   if (timerInterval) {
     clearInterval(timerInterval);
   }
+  setProgress(100);
+
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
   document.getElementById("minutes").innerText =
@@ -56,16 +68,8 @@ const tabs = document.querySelectorAll(".tab");
 tabs.forEach((tab) => {
   tab.addEventListener("click", (e) => {
     const activeTab = document.querySelector(".tab.active");
-    activeTab.classList.remove("active");
-    activeTab.style.backgroundColor = "rgba(22, 25, 50, 1)";
-    activeTab.style.color = "#d7e0ff";
-    tab.classList.add("active");
-    tab.style.backgroundColor = selectedColor;
-    tab.style.color = "#1e213f";
-    document.querySelector(
-      ".circular-progress"
-    ).style.background = `conic-gradient(${selectedColor} 360deg, #161932 0deg)`;
-
+    activeTab.classList.remove("active", `bg-${selectedColor}`);
+    tab.classList.add("active", `bg-${selectedColor}`);
     reset();
   });
 });
@@ -79,6 +83,7 @@ settingsModalBtn.addEventListener("click", (e) => {
   tempPomodoroTime = pomodoroTime;
   tempShortBreakTime = shortBreakTime;
   tempLongBreakTime = longBreakTime;
+  tempSelectedColor = selectedColor;
   inputs.forEach((input) => {
     const name = input.name;
     // set inputs felds to their values
@@ -188,7 +193,6 @@ fonts.forEach((font) => {
     font.classList.add("active");
     //to get selected font from the data-font attribute
     selectedFont = font.getAttribute("data-font");
-    // document.body.style.fontFamily = font.getAttribute("data-font")
   });
 });
 
@@ -196,12 +200,12 @@ const colorStyles = document.querySelectorAll(".color-style");
 colorStyles.forEach((colorStyle) => {
   colorStyle.addEventListener("click", (e) => {
     const activeColorStyle = document.querySelector(".color-style.active");
-   //removing check from current active style
+    //removing check from current active style
     activeColorStyle.innerHTML = "";
     activeColorStyle.classList.remove("active");
     colorStyle.classList.add("active");
     colorStyle.innerHTML = "&check;";
-    selectedColor = colorStyle.getAttribute("data-color");
+    tempSelectedColor = colorStyle.getAttribute("data-color");
   });
 });
 
@@ -215,12 +219,22 @@ applyBtn.addEventListener("click", (e) => {
   shortBreakTotalSeconds = Number(tempShortBreakTime) * 60;
   longBreakTotalSeconds = Number(tempLongBreakTime) * 60;
 
+  progressBarCircle.classList.remove(`stroke-${selectedColor}`);
+  progressBarCircle.classList.add(`stroke-${tempSelectedColor}`);
+
+  selectedColor = tempSelectedColor;
+
   document.body.style.fontFamily = selectedFont;
-  applyBtn.style.backgroundColor = selectedColor;
-  document.querySelector(".tab.active").style.backgroundColor = selectedColor;
-  document.querySelector(
-    ".circular-progress"
-  ).style.background = `conic-gradient(${selectedColor} 360deg, #161932 0deg)`;
+  applyBtn.className = applyBtn.className.replace(
+    /\bbg.\w*\b/g,
+    `bg-${selectedColor}`
+  );
+  const activeTab = document.querySelector(".tab.active");
+  activeTab.className = activeTab.className.replace(
+    /\bbg.\w*\b/g,
+    `bg-${selectedColor}`
+  );
+
   reset();
   closeModal();
 });
@@ -229,16 +243,16 @@ const startTimer = () => {
   startBtn.classList.add("hide");
   pauseBtn.classList.remove("hide");
 
-  const activeTab = document.querySelector(".tab.active").getAttribute("id");
-  var totalSeconds = 0;
-  var overAllSeconds = 0;
-  if (activeTab === "pomodoro") {
+  const activeTabId = document.querySelector(".tab.active").getAttribute("id");
+  let totalSeconds = 0;
+  let overAllSeconds = 0;
+  if (activeTabId === "pomodoro") {
     totalSeconds = pomodoroTotalSeconds;
     overAllSeconds = pomodoroTotalSeconds;
-  } else if (activeTab === "short-break") {
+  } else if (activeTabId === "short-break") {
     totalSeconds = shortBreakTotalSeconds;
     overAllSeconds = shortBreakTotalSeconds;
-  } else if (activeTab === "long-break") {
+  } else if (activeTabId === "long-break") {
     totalSeconds = longBreakTotalSeconds;
     overAllSeconds = longBreakTotalSeconds;
   }
@@ -249,26 +263,19 @@ const startTimer = () => {
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
     const percentage = (totalSeconds / overAllSeconds) * 100;
+    setProgress(percentage);
 
     document.getElementById("minutes").innerText =
       minutes < 10 ? `0${minutes}` : minutes;
     document.getElementById("seconds").innerText =
       seconds < 10 ? `0${seconds}` : seconds;
-    document.querySelector(
-      ".circular-progress"
-    ).style.background = `conic-gradient(${selectedColor} ${
-      percentage * 3.6
-    }deg, #161932 0deg)`;
 
-    //if timer gets to zero
+    //if timer gets to zerooq
     if (totalSeconds <= 0) {
       clearInterval(timerInterval);
       pauseBtn.classList.add("hide");
       restartBtn.classList.remove("hide");
-
-      document.querySelector(
-        ".circular-progress"
-      ).style.background = `conic-gradient(${selectedColor} 360deg, #161932 0deg)`;
+      setProgress(100)
     }
   }, 1000);
 };
